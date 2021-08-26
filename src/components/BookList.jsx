@@ -1,40 +1,42 @@
 import React from 'react'
 import SingleBook from './SingleBook'
-import {Container, Row, Col, InputGroup, FormControl} from 'react-bootstrap'
+import { Col, Container, Form, Row } from 'react-bootstrap'
 
-class BookList extends React.Component{
-    state={
-        searchQuery:''
+class BookList extends React.Component {
+
+    state = {
+        searchQuery: ''
     }
 
-    render(){
-
-        return(
-           <Container>
-               <Row>
+    render() {
+        return (
+            <Container>
+                <Row>
                     <Col>
-                    <InputGroup className="mb-5 mt-5">
-                        <FormControl
-                        placeholder="select a title"
-                        value={this.state.searchQuery}
-                        onChange={e=>this.setState({searchQuery:e.target.value})}
-                        />
-                    </InputGroup>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>Search</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Search here"
+                                value={this.state.searchQuery}
+                                onChange={e => this.setState({ searchQuery: e.target.value })}
+                            />
+                        </Form.Group>
                     </Col>
-               </Row>
-
-               <Row>
-                    { 
-                    this.props.books.filter(book=>book.title.toLowerCase().includes(this.state.searchQuery)).map(book=>(         
-                        <Col xs={12} md={6} lg={4} className="mt-3 d-flex flex-end">
-                            <SingleBook book={book} />
-                        </Col>
-                        )
-                    )
+                </Row>
+                <Row>
+                    {
+                        this.props.books.filter(b => b.title.toLowerCase().includes(this.state.searchQuery)).map(b => (
+                            <Col xs={3} key={b.asin} >
+                                <SingleBook book={b} />
+                            </Col>
+                        ))
                     }
                 </Row>
             </Container>
         )
+    }
+
 }
-}
+
 export default BookList

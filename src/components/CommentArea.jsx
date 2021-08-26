@@ -1,24 +1,48 @@
-const CommentsArea = ({ bookc}) => (
-    // conditional rendering with a ternary operator
-    bookc ? (
-        <ul>
-            {
-                // the list is listening to the state in order to know when to refresh!
-                bookc.map(c => (
-                    <li key={c.id}>{c.comment}</li>
-                ))
+import { Component } from 'react'
+import CommentList from './CommentList'
+import AddComment from './Addcomment'
+import Loading from './Loading'
+import Error from './Error.jsx'
 
-                // dish?.comments.map(c => (
-                //     <li key={c.id}>{c.comment}</li>
-                // ))
-                // that question mark is called OPTIONAL CHAINING
-                // it will check the truthiness of dish before trying to access its comments property
+class CommentArea extends Component {
 
+    state = {
+        comments: [], // comments will go here
+        isLoading: true,
+        isError: false
+    }
+
+    componentDidMount = async () => {
+        try {
+            let response = await fetch('https://striveschool-api.herokuapp.com/api/comments/' + this.props.asin, {
+                headers: {
+                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTFjZjBlNzJkNTI2MjAwMTViNmRjOTEiLCJpYXQiOjE2MjkyODY2MzIsImV4cCI6MTYzMDQ5NjIzMn0.DmqdR4D3rw25zQ1mpfIjVbVzPkMA5en-dJpOGpqfwP4"
+                }
+            })
+            console.log(response)
+            if (response.ok) {
+                let comments = await response.json()
+                this.setState({ comments: comments, isLoading: false, isError: false })
+            } else {
+                console.log('error')
+                this.setState({ isLoading: false, isError: true })
             }
-        </ul>
-    ) : (
-        <div>no book selected</div>
-    )
-)
+        } catch (error) {
+            console.log(error)
+            this.setState({ isLoading: false, isError: true })
+        }
+    }
 
-export default CommentsArea
+    render() {
+        return (
+            <div>
+                {this.state.isLoading && <Loading />}
+                {this.state.isError && <Error />}
+                <AddComment asin={this.props.asin} />
+                <CommentList commentsToShow={this.state.comments} />
+            </div>
+        )
+    }
+}
+
+export default CommentArea
