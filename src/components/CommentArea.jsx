@@ -4,7 +4,7 @@ const CommentsArea = ({ bookc}) => (
         <ul>
             {
                 // the list is listening to the state in order to know when to refresh!
-                bookc.comment.map(c => (
+                bookc.map(c => (
                     <li key={c.id}>{c.comment}</li>
                 ))
 

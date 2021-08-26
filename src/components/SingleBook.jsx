@@ -1,6 +1,6 @@
 import React from 'react'
 import {Card} from 'react-bootstrap'
-import CommentsArea from './CommentArea'
+import CommentArea from './CommentArea'
 
 
 class SingleBook extends React.Component{ 
@@ -34,10 +34,10 @@ catch (error) {
 }
     render(){
     return(
-          
+          <>
             <Card 
             className={this.state.selected?"d-flex d-block mx-3 w-100 h-100 bg-danger mt-3 mb-3":"d-flex d-block mx-3 w-100 h-100 bg-warning mt-3 mb-3"}
-            onClick={()=>this.setState({selected:!this.state.selected && this.state.comments[0]})} //SUPER TRICK!!
+            onClick={()=>this.setState({selected:!this.state.selected && this.state.comments})} //SUPER TRICK!!
             
             >
                 <Card.Img variant="top" src={this.props.book.img} />
@@ -47,11 +47,12 @@ catch (error) {
                     {/* <Button variant="success">add to cart</Button> */}
                 </Card.Body>
             </Card>
-   
+            <CommentArea bookc ={this.state.comments}/>
+   </>
 )
 
 }
-<CommentArea bookc ={this.state.selected}/>
+
 }
 
 export default SingleBook
