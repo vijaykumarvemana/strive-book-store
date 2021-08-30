@@ -12,7 +12,7 @@ class CommentArea extends Component {
         isError: false
     }
 
-    componentDidMount = async () => {
+    fetchComments = async() => {
         try {
             let response = await fetch('https://striveschool-api.herokuapp.com/api/comments/' + this.props.asin, {
                 headers: {
@@ -33,6 +33,15 @@ class CommentArea extends Component {
         }
     }
 
+    componentDidMount() {
+       this.fetchComments()
+    }
+    componentDidUpdate (previousProps, previousState) {
+        if(previousProps.asin !== this.props.asin){
+
+            this.fetchComments()
+        }
+    }
     render() {
         return (
             <div>
