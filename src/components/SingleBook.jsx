@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card} from 'react-bootstrap'
+import {Card, Container, Row, Col} from 'react-bootstrap'
 import CommentArea from './CommentArea'
 
 
@@ -12,7 +12,10 @@ class SingleBook extends React.Component {
 
     render() {
         return (
-            <>
+            <> <Container>
+                <Row>
+                    <Col>
+                    
                 <Card
                     onClick={() => this.setState({ selected: !this.state.selected })}
                     style={{ border: this.state.selected ? '3px solid red' : 'none' }}
@@ -22,9 +25,15 @@ class SingleBook extends React.Component {
                         <Card.Title style={{ color: 'black' }}>{this.props.book.title}</Card.Title>
                     </Card.Body>
                 </Card>
+                </Col>
+                <Col>
                 {
                     this.state.selected && <CommentArea asin={this.props.book.asin} />
                 }
+                </Col>
+
+                </Row>
+            </Container>
             </>
         )
     }
