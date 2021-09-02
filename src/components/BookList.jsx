@@ -14,8 +14,6 @@ class BookList extends React.Component {
         return (
             <Container>
                 <Row>
-                    <Col md={8}>
-                <Row>
                     <Col>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Search</Form.Label>
@@ -37,12 +35,13 @@ class BookList extends React.Component {
                         ))
                     }
                 </Row>
-                </Col>
-                <
-            </Container>
+                
+                
+                </Container>
         )
+        
     }
-
+    
 }
 
 export default BookList
