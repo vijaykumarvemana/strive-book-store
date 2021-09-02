@@ -5,12 +5,16 @@ import { Col, Container, Form, Row } from 'react-bootstrap'
 class BookList extends React.Component {
 
     state = {
-        searchQuery: ''
+        searchQuery: '',
+        selectedBook: null
+
     }
 
     render() {
         return (
             <Container>
+                <Row>
+                    <Col md={8}>
                 <Row>
                     <Col>
                         <Form.Group controlId="formBasicEmail">
@@ -33,6 +37,8 @@ class BookList extends React.Component {
                         ))
                     }
                 </Row>
+                </Col>
+                <
             </Container>
         )
     }
